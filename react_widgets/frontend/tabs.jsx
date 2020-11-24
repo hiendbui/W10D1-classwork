@@ -1,19 +1,33 @@
 import React from 'react';
-import tabItems from './tab_items';
+
 
 // <Tabs list={list} />
 export default class Tabs extends React.Component {
     constructor(props) {
         super(props);
+        this.state = { idx: 0 };
+    }
+
+    selectTab(i) {
+        this.setState({
+            idx: i
+        });
     }
 
     render() {
+        // const tabs = props
         return (
-            <ul>
-                <h1>One</h1>
-                <h1>Two</h1>
-                <h1>Three</h1>
-            </ul>
+            <div className="tabs">
+                <ul>
+                    {this.props.tabs.map((tab, idx) => 
+                        <span key={tab.objectID} onClick={this.selectTab.bind(this, idx)}>
+                            {tab.title}
+                        </span>)}
+                </ul>
+                <article>
+                    {this.props.tabs[this.state.idx].content}
+                </article>
+            </div>
         )
     }
 }
